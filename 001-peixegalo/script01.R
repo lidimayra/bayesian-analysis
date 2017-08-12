@@ -16,3 +16,18 @@ xlim=c(10,70)
 ylim=c(0,1)
 plot(x, y/n, xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim, pch=16)
 
+# Centralização dos dados do comprimento
+# comprimento - média
+xc <- x - mean(x)
+
+# Tabela com os dados de interesse
+galo <- cbind(xc, n, y)
+
+# Número de fêmeas maturas(y) e imaturas(n-y)
+resposta <- cbind(y, n-y)
+
+# A análise convencional para obter os estimadores de máxima
+# verossimilhança de β0 e β1 consiste em ajustar uma regressão
+# logística
+galo.glm <- glm(resposta~xc, family=binomial(link="logit"))
+summary(galo.glm)
